@@ -138,6 +138,11 @@ func printDownloadDebugInfo(ip *net.IPAddr, err error, statusCode int, url, last
 // return download Speed
 func downloadHandler(ip *net.IPAddr) (float64, string) {
 	var lastRedirectURL string // Record last redirect target for output during errors
+
+	// Global hard timeout (independent of read loop logic)
+    ctx, cancel := context.WithTimeout(context.Background(), Timeout)
+    defer cancel()
+
 	client := &http.Client{
 		Transport: &http.Transport{DialContext: getDialContext(ip)},
 		Timeout:   Timeout,
@@ -155,7 +160,7 @@ func downloadHandler(ip *net.IPAddr) (float64, string) {
 			return nil
 		},
 	}
-	req, err := http.NewRequest("GET", URL, nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", URL, nil)
 	if err != nil {
 		if utils.Debug { // Debug mode: output more info
 			utils.Red.Printf("[Debug] IP: %s, Failed to create download test request, error: %v, download URL: %s\n", ip.String(), err, URL)
@@ -201,6 +206,13 @@ func downloadHandler(ip *net.IPAddr) (float64, string) {
 
 	// Loop to calculate; exit when file is fully downloaded (contentRead == contentLength)
 	for contentLength != contentRead {
+		// 🚨 Hard timeout check (immediate exit)
+        select {
+        case <-ctx.Done():
+            return 0.0, ""
+        default:
+        }
+
 		currentTime := time.Now()
 		if currentTime.After(nextTime) {
 			timeCounter++
