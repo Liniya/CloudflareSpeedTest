@@ -1,8 +1,5 @@
 # XIU2/CloudflareSpeedTest
 
-> [!NOTE]
-> This is an up-to-date fork (for 28.12.2025) of [**XIU2/CloudflareSpeedTest**](https://github.com/XIU2/CloudflareSpeedTest) that attempts to fix timeout support in the download test code for a specific blocking method called "[TCP 16-20](https://github.com/net4people/bbs/issues/490)" used by censors in certain countries. Additionally, all the Chinese text is machine-translated to English. Please support the original author(s) [here](https://github.com/XIU2/CloudflareSpeedTest).
-
 [![Go Version](https://img.shields.io/github/go-mod/go-version/XIU2/CloudflareSpeedTest.svg?style=flat-square&label=Go&color=00ADD8&logo=go)](https://github.com/XIU2/CloudflareSpeedTest/)
 [![Release Version](https://img.shields.io/github/v/release/XIU2/CloudflareSpeedTest.svg?style=flat-square&label=Release&color=00ADD8&logo=github)](https://github.com/XIU2/CloudflareSpeedTest/releases/latest)
 [![GitHub license](https://img.shields.io/github/license/XIU2/CloudflareSpeedTest.svg?style=flat-square&label=License&color=00ADD8&logo=github)](https://github.com/XIU2/CloudflareSpeedTest/)
