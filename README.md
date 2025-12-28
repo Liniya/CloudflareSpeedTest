@@ -717,9 +717,7 @@ cfst.exe -f 1.txt
 
 <details>
 <summary><code><strong>「 Click to expand content 」</strong></code></summary>
-
 ****
-
 **\#\# Simple Principle Explanation:**
 
 First, understand that CFST's download test is essentially the same as adding the `IP download-test-url-domain` to your hosts file and accessing the URL in a browser—it just automates this (similar to `curl -I --resolve download-test-url-domain:443:IP https://download-test-url`).
