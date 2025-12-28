@@ -1,5 +1,8 @@
 # XIU2/CloudflareSpeedTest
 
+> [!NOTE]
+> This is an up-to-date fork (for 28.12.2025) of [**XIU2/CloudflareSpeedTest**](https://github.com/XIU2/CloudflareSpeedTest) that attempts to fix timeout support in the download test code for a specific blocking method called "[TCP 16-20](https://github.com/net4people/bbs/issues/490)" used by censors in certain countries. Additionally, all the Chinese text is machine-translated to English. Please support the original author(s) [here](https://github.com/XIU2/CloudflareSpeedTest).
+
 [![Go Version](https://img.shields.io/github/go-mod/go-version/XIU2/CloudflareSpeedTest.svg?style=flat-square&label=Go&color=00ADD8&logo=go)](https://github.com/XIU2/CloudflareSpeedTest/)
 [![Release Version](https://img.shields.io/github/v/release/XIU2/CloudflareSpeedTest.svg?style=flat-square&label=Release&color=00ADD8&logo=github)](https://github.com/XIU2/CloudflareSpeedTest/releases/latest)
 [![GitHub license](https://img.shields.io/github/license/XIU2/CloudflareSpeedTest.svg?style=flat-square&label=License&color=00ADD8&logo=github)](https://github.com/XIU2/CloudflareSpeedTest/)
@@ -140,7 +143,7 @@ IP Address,Sent,Received,Loss Rate,Avg Latency,Download Speed(MB/s),Region Code
 ```
 
 > [!NOTE]
-> _If you find **download speed is 0.00**, use **debug mode `-debug`** to troubleshoot; see: [**# Download Speed is 0.00?**](https://github.com/XIU2/CloudflareSpeedTest#-%E4%B8%8B%E8%BD%BD%E6%B5%8B%E9%80%9F%E9%83%BD%E6%98%AF-000-)_
+> _If you find **download speed is 0.00**, use **debug mode `-debug`** to troubleshoot; see: [**# Download Speed is 0.00?**](https://github.com/Liniya/CloudflareSpeedTest#-download-speed-is-000)_
 
 > _You can further filter and process the full results based on your needs, or check out advanced usage with **custom filtering conditions**!_
 
