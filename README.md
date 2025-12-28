@@ -717,6 +717,7 @@ cfst.exe -f 1.txt
 
 <details>
 <summary><code><strong>「 Click to expand content 」</strong></code></summary>
+
 ****
 
 **\#\# Simple Principle Explanation:**
