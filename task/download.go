@@ -138,11 +138,6 @@ func printDownloadDebugInfo(ip *net.IPAddr, err error, statusCode int, url, last
 // return download Speed
 func downloadHandler(ip *net.IPAddr) (float64, string) {
 	var lastRedirectURL string // Record last redirect target for output during errors
-
-	// Global hard timeout (independent of read loop logic)
-    ctx, cancel := context.WithTimeout(context.Background(), Timeout)
-    defer cancel()
-
 	client := &http.Client{
 		Transport: &http.Transport{DialContext: getDialContext(ip)},
 		Timeout:   Timeout,
@@ -160,7 +155,7 @@ func downloadHandler(ip *net.IPAddr) (float64, string) {
 			return nil
 		},
 	}
-	req, err := http.NewRequestWithContext(ctx, "GET", URL, nil)
+	req, err := http.NewRequest("GET", URL, nil)
 	if err != nil {
 		if utils.Debug { // Debug mode: output more info
 			utils.Red.Printf("[Debug] IP: %s, Failed to create download test request, error: %v, download URL: %s\n", ip.String(), err, URL)
@@ -206,16 +201,6 @@ func downloadHandler(ip *net.IPAddr) (float64, string) {
 
 	// Loop to calculate; exit when file is fully downloaded (contentRead == contentLength)
 	for contentLength != contentRead {
-		// 🚨 Hard timeout check (immediate exit)
-        select {
-        case <-ctx.Done():
-			if utils.Debug { // Debug mode: output more info
-				utils.Red.Printf("[Debug] IP: %s, Timeout by connection stalling, download URL: %s\n", ip.String(), req.URL.String())
-			}
-            return 0.0, ""
-        default:
-        }
-
 		currentTime := time.Now()
 		if currentTime.After(nextTime) {
 			timeCounter++
@@ -234,12 +219,12 @@ func downloadHandler(ip *net.IPAddr) (float64, string) {
 		if err != nil {
 			if err != io.EOF { // If error occurs during download and it's not EOF, exit loop (terminate test)
 				if utils.Debug { // Debug mode: output more info
-					utils.Red.Printf("[Debug] IP: %s, Error during download: %v, download URL: %s\n", ip.String(), err, req.URL.String())
+					utils.Red.Printf("[Debug] IP: %s, Error during download test: %v, download URL: %s\n", ip.String(), err, req.URL.String())
 				}
 				break
 			} else if contentLength == -1 { // File downloaded completely and size is unknown; exit loop (terminate test), e.g., https://speed.cloudflare.com/__down?bytes=200000000; if downloaded within 10s, speed result may be significantly lower or show as 0.00 (too fast)
 				if utils.Debug { // Debug mode: output more info
-					utils.Red.Printf("[Debug] IP: %s, Download completed but file size is unknown, download URL: %s\n", ip.String(), req.URL.String())
+					utils.Red.Printf("[Debug] IP: %s, Test download completed but file size is unknown, download URL: %s\n", ip.String(), req.URL.String())
 				}
 				break
 			}
