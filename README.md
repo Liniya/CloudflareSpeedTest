@@ -7,7 +7,7 @@
 [![GitHub Fork](https://img.shields.io/github/forks/XIU2/CloudflareSpeedTest.svg?style=flat-square&label=Fork&color=00ADD8&logo=github)](https://github.com/XIU2/CloudflareSpeedTest/)
 
 > [!NOTE]
-> This is an up-to-date fork (for 28.12.2025) of [**XIU2/CloudflareSpeedTest**](https://github.com/XIU2/CloudflareSpeedTest) that attempts to fix timeout support in the download test code for a specific blocking method called "[TCP 16-20](https://github.com/net4people/bbs/issues/490)" used by censors in certain countries. Additionally, all the Chinese text is machine-translated to English. Please support the original author(s) [here](https://github.com/XIU2/CloudflareSpeedTest).
+> This is an up-to-date fork (for 28.12.2025) of [**XIU2/CloudflareSpeedTest**](https://github.com/XIU2/CloudflareSpeedTest) with all the Chinese text machine-translated to English, as well as a few other changes. Please support the original author(s) [here](https://github.com/XIU2/CloudflareSpeedTest).
 
 Many websites abroad use Cloudflare CDN, but the IP addresses allocated to visitors from mainland China are often unfriendly (high latency, high packet loss, slow speed).  
 Although Cloudflare has published all its [IP ranges](https://www.cloudflare.com/zh-cn/ips/), finding the best ones among so many IPs could be exhausting—hence this tool.
