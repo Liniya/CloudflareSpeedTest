@@ -209,6 +209,9 @@ func downloadHandler(ip *net.IPAddr) (float64, string) {
 		// 🚨 Hard timeout check (immediate exit)
         select {
         case <-ctx.Done():
+			if utils.Debug { // Debug mode: output more info
+				utils.Red.Printf("[Debug] IP: %s, Timeout by connection stalling, download URL: %s\n", ip.String(), req.URL.String())
+			}
             return 0.0, ""
         default:
         }
@@ -222,13 +225,22 @@ func downloadHandler(ip *net.IPAddr) (float64, string) {
 		}
 		// If exceeded download test duration, exit loop (terminate test)
 		if currentTime.After(timeEnd) {
+			if utils.Debug { // Debug mode: output more info
+				utils.Red.Printf("[Debug] IP: %s, Download test duration exceeded, download URL: %s\n", ip.String(), req.URL.String())
+			}
 			break
 		}
 		bufferRead, err := response.Body.Read(buffer)
 		if err != nil {
 			if err != io.EOF { // If error occurs during download and it's not EOF, exit loop (terminate test)
+				if utils.Debug { // Debug mode: output more info
+					utils.Red.Printf("[Debug] IP: %s, Error during download: %v, download URL: %s\n", ip.String(), err, req.URL.String())
+				}
 				break
 			} else if contentLength == -1 { // File downloaded completely and size is unknown; exit loop (terminate test), e.g., https://speed.cloudflare.com/__down?bytes=200000000; if downloaded within 10s, speed result may be significantly lower or show as 0.00 (too fast)
+				if utils.Debug { // Debug mode: output more info
+					utils.Red.Printf("[Debug] IP: %s, Download completed but file size is unknown, download URL: %s\n", ip.String(), req.URL.String())
+				}
 				break
 			}
 			// Get previous time slice
